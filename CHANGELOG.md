@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.2.0...v0.3.0) (2021-07-14)
+
+
+### Features
+
+* implemented dist folder to deploy the app ([ebbbf56](https://github.com/AnthonyLzq/ihc-project-back/commit/ebbbf56dad6735020982ee2ff90f47e83a72ae1d))
+* implemented endpoint to get the selected courses ([526482c](https://github.com/AnthonyLzq/ihc-project-back/commit/526482c0f92a3a738e67a53a2bd71647055459f3))
+
 ## [0.2.0](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.1.1...v0.2.0) (2021-07-14)
 
 
