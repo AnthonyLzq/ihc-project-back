@@ -4,6 +4,16 @@ GET http://localhost:1996/api/syllabus
 ### Testing getOne syllabus
 GET http://localhost:1996/api/syllabus/CC751
 
+### Testing getSome syllabus
+POST http://localhost:1996/api/syllabus
+Content-Type: application/json
+
+{
+  "args": {
+    "ids": ["CC004", "CC008", "CC010"]
+  }
+}
+
 ### Testing selectCourses
 PATCH http://localhost:1996/api//user/selectCourses
 Content-Type: application/json

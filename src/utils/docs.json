@@ -14,8 +14,12 @@
   },
   "servers": [
     {
+      "url": "https://ihc-back.herokuapp.com/api",
+      "description": "IHC project back production api"
+    },
+    {
       "url": "http://localhost:1996/api",
-      "description": "test local API"
+      "description": "IHC project back local api"
     }
   ],
   "tags": [
@@ -217,6 +221,54 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Syllabus"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "syllabus"
+        ],
+        "summary": "Get the syllabus courses that the user already select",
+        "operationId": "getSomeSyllabus",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/GetSomeSyllabus"
+        },
+        "responses": {
+          "200": {
+            "description": "All the syllabus in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Syllabus"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The syllabus courses selected by the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DefaultError"
                   }
                 }
               }
@@ -529,6 +581,30 @@
             }
           }
         }
+      },
+      "GetSomeSyllabus": {
+        "description": "User name, last name and id",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "args": {
+                  "type": "object",
+                  "properties": {
+                    "ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": true
       }
     }
   }

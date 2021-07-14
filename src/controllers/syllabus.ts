@@ -1,3 +1,4 @@
+import { firestore } from 'firebase-admin'
 import httpErrors from 'http-errors'
 
 import { CustomNodeJSGlobal } from '../custom'
@@ -8,7 +9,7 @@ import { EFS, GE, errorHandling } from './utils'
 declare const global: CustomNodeJSGlobal
 
 type Process = {
-  type: 'getAll' | 'getOne'
+  type: 'getAll' | 'getOne' | 'getSome'
 }
 
 class Syllabus {
@@ -30,11 +31,14 @@ class Syllabus {
         return this._getAll()
       case 'getOne':
         return this._getOne()
+      case 'getSome':
+        return this._getSome()
     }
   }
 
   private async _getAll(): Promise<ISyllabus[]> {
     const allSyllabus: ISyllabus[] = []
+
     try {
       const syllabus = await this._syllabusRef.get()
       syllabus.docs.map(doc => allSyllabus.push({
@@ -61,6 +65,20 @@ class Syllabus {
         ...syllabus.data(),
         icon: syllabus.data()?.icon ?? null
       } as ISyllabus
+    } catch (e) {
+      return errorHandling(e, GE.INTERNAL_SERVER_ERROR)
+    }
+  }
+
+  private async _getSome(): Promise<ISyllabus[]> {
+    const { ids } = this._args as DtoSyllabus
+
+    try {
+      const syllabus = await this._syllabusRef
+        .where(firestore.FieldPath.documentId(), 'in', ids as string[])
+        .get()
+
+      return syllabus.docs.map(doc => ({ ...doc.data() } as ISyllabus))
     } catch (e) {
       return errorHandling(e, GE.INTERNAL_SERVER_ERROR)
     }
