@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.3.1...v0.3.2) (2021-07-14)
+
+
+### Bug Fixes
+
+* fixed build ([de799fe](https://github.com/AnthonyLzq/ihc-project-back/commit/de799fe577ea8bc443af3e1dcdb8cd64c9865f52))
+
 ### [0.3.1](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.3.0...v0.3.1) (2021-07-14)
 
 
