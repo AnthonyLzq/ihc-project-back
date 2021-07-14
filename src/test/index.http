@@ -1,0 +1,20 @@
+### Testing getAll syllabus
+GET http://localhost:1996/api/syllabus
+
+### Testing getOne syllabus
+GET http://localhost:1996/api/syllabus/CC751
+
+### Testing store a user
+POST http://localhost:1996/api/users
+Content-Type: application/json
+
+{
+  "args": {
+    "id": "fW5bcQXoPKU8c1HkQEjd24dUyh62",
+    "lastName": "Soporte",
+    "name": "ACECOM"
+  }
+}
+
+### Testing get one user
+GET http://localhost:1996/api/user/fW5bcQXoPKU8c1HkQEjd24dUyh62

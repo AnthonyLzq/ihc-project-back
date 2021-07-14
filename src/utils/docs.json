@@ -1,0 +1,436 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "IHC project back",
+    "description": "Documentation of the IHC project back",
+    "contact": {
+      "email": "acecom.soporte@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:1996/api",
+      "description": "test local API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations related to the user"
+    },
+    {
+      "name": "syllabus",
+      "description": "Operations related to the syllabus"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Save a user in the database",
+        "operationId": "storeUser",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/DtoUser"
+        },
+        "responses": {
+          "201": {
+            "description": "User successfully stored",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultSuccess"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User already registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get an specific user",
+        "operationId": "getOneUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Firestore user id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User stored in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/syllabus": {
+      "get": {
+        "tags": [
+          "syllabus"
+        ],
+        "summary": "Get all the syllabus",
+        "operationId": "getAllSyllabus",
+        "responses": {
+          "200": {
+            "description": "All the syllabus in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Syllabus"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/syllabus/{id}": {
+      "get": {
+        "tags": [
+          "syllabus"
+        ],
+        "summary": "Get a specific syllabus",
+        "operationId": "getOneSyllabus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Firestore syllabus id (Same than in the Studies plan of CS)",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Syllabus stored in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Syllabus"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Syllabus not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Syllabus": {
+        "type": "object",
+        "properties": {
+          "analyticProgram": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "themes": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "topic": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "bibliography": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "rating": {
+                "type": "number"
+              }
+            }
+          },
+          "competencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "generalInfo": {
+            "type": "object",
+            "properties": {
+              "condition": {
+                "type": "string"
+              },
+              "course": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "credits": {
+                "type": "number"
+              },
+              "evaluationSystem": {
+                "type": "string"
+              },
+              "hoursPerWeek": {
+                "type": "object",
+                "properties": {
+                  "laboratory": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "practice": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "theory": {
+                    "type": "number"
+                  },
+                  "total": {
+                    "type": "number"
+                  }
+                }
+              },
+              "preRequirements": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          },
+          "sommelier": {
+            "type": "string"
+          }
+        }
+      },
+      "DefaultSuccess": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean",
+            "default": false
+          },
+          "message": {
+            "type": "object",
+            "properties": {
+              "result": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "DefaultError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean",
+            "default": true
+          },
+          "message": {
+            "type": "object",
+            "properties": {
+              "result": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "DtoUser": {
+        "description": "User name, last name and id",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "args": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": true
+      }
+    }
+  }
+}
