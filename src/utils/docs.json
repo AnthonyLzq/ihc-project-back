@@ -154,7 +154,7 @@
     "/user/selectCourses": {
       "patch": {
         "tags": [
-          "users"
+          "user"
         ],
         "summary": "Select the courses in the first login",
         "operationId": "selectCoursesUser",
