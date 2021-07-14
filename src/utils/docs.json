@@ -10,7 +10,7 @@
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     },
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "servers": [
     {
@@ -103,6 +103,60 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "User stored in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/selectCourses": {
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Select the courses in the first login",
+        "operationId": "selectCoursesUser",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SelectCourses"
+        },
         "responses": {
           "200": {
             "description": "User stored in the database",
@@ -259,6 +313,13 @@
           },
           "name": {
             "type": "string"
+          },
+          "selectedCourses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
           }
         }
       },
@@ -286,8 +347,20 @@
           "bibliography": {
             "type": "object",
             "properties": {
+              "category": {
+                "enum": [
+                  "blog",
+                  "tutorial",
+                  "paper",
+                  "book"
+                ],
+                "nullable": true
+              },
               "name": {
                 "type": "string"
+              },
+              "rates": {
+                "type": "integer"
               },
               "rating": {
                 "type": "number"
@@ -430,6 +503,32 @@
           }
         },
         "required": true
+      },
+      "SelectCourses": {
+        "description": "User id and course ids",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "args": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "selectedCourses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

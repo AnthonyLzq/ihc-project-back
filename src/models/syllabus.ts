@@ -23,8 +23,10 @@ interface IGeneralInfo {
 }
 
 interface IBibliographyAndRating {
-  name  : string
-  rating: number
+  category: 'blog' | 'tutorial' | 'paper' | 'book' | null
+  name    : string
+  rates   : number
+  rating  : number
 }
 
 interface ISyllabus {

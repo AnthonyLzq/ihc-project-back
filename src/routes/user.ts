@@ -4,7 +4,7 @@ import { Response, Request } from '../custom'
 import { response } from  '../utils'
 import { User as UserC } from '../controllers/user'
 import { DtoUser } from '../dto-interfaces'
-import { idUser, userSchema } from '../schemas'
+import { idUser, userSchema, userSelectCoursesSchema } from '../schemas'
 
 const User = Router()
 
@@ -40,5 +40,24 @@ User.route('/user/:id')
       }
     }
   )
+
+User.route('/user/selectCourses').patch(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const {
+      body: { args }
+    } = req
+
+    try {
+      await userSelectCoursesSchema.validateAsync(args)
+      const u = new UserC(args as DtoUser)
+      const result = await u.process({ type: 'selectCourses' })
+
+      response(false, result, res, 200)
+    } catch (e) {
+      if (e.isJoi) e.status = 422
+      next(e)
+    }
+  }
+)
 
 export { User }

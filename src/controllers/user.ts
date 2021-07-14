@@ -8,7 +8,7 @@ import { EFU, MFU, GE, errorHandling } from './utils'
 declare const global: CustomNodeJSGlobal
 
 type Process = {
-  type: 'store' | 'getOne'
+  type: 'store' | 'getOne' | 'selectCourses'
 }
 
 class User {
@@ -33,6 +33,8 @@ class User {
         return this._store()
       case 'getOne':
         return this._getOne()
+      case 'selectCourses':
+        return this._selectCourses()
     }
   }
 
@@ -67,7 +69,31 @@ class User {
 
       return {
         ...user.data(),
-        id: id as string
+        id             : id as string,
+        selectedCourses: user.data()?.selectedCourses ?? []
+      } as IUser
+    } catch (e) {
+      return errorHandling(e, GE.INTERNAL_SERVER_ERROR)
+    }
+  }
+
+  private async _selectCourses(): Promise<IUser> {
+    const { id, selectedCourses } = this._args as DtoUser
+
+    try {
+      let user = await this._usersRef.doc(id as string).get()
+
+      if (!user.data())
+        throw new httpErrors.NotFound(EFU.NOT_FOUND)
+
+      await this._usersRef.doc(id as string).update({
+        selectedCourses
+      })
+      user = await this._usersRef.doc(id as string).get()
+
+      return {
+        ...user.data(),
+        id
       } as IUser
     } catch (e) {
       return errorHandling(e, GE.INTERNAL_SERVER_ERROR)
