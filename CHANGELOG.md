@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.3](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.3.2...v0.3.3) (2021-07-19)
+
+
+### Bug Fixes
+
+* fixed bug that didn't store the users ([6f28da9](https://github.com/AnthonyLzq/ihc-project-back/commit/6f28da9f0380b962969fb32c6573ce0245c7da26))
+
 ### [0.3.2](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.3.1...v0.3.2) (2021-07-14)
 
 
