@@ -1,3 +1,4 @@
+import { firestore } from 'firebase-admin'
 import httpErrors from 'http-errors'
 
 import { CustomNodeJSGlobal } from '../custom'
@@ -13,8 +14,8 @@ type Process = {
 
 class User {
   private _args: DtoUser | null
-  private _usersRef: FirebaseFirestore.CollectionReference<
-    FirebaseFirestore.DocumentData
+  private _usersRef: firestore.CollectionReference<
+    firestore.DocumentData
   >
 
 
@@ -44,7 +45,7 @@ class User {
     try {
       const foundUser = await this._usersRef.doc(id as string).get()
 
-      if (foundUser)
+      if (foundUser.exists)
         throw new httpErrors.Conflict(EFU.ALREADY_REGISTERED)
 
       await this._usersRef.doc(id as string).set({

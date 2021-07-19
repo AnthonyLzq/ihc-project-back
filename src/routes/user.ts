@@ -19,6 +19,7 @@ User.route('/users')
         const result = await u.process({ type: 'store' })
         response(false, result, res, 201)
       } catch (e) {
+        if (e.isJoi) e.status = 422
         next(e)
       }
     }

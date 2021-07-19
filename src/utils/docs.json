@@ -113,7 +113,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "message": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
                 }
               }
             }
@@ -167,7 +176,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "message": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
                 }
               }
             }
@@ -218,9 +236,18 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Syllabus"
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "message": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Syllabus"
+                      }
+                    }
                   }
                 }
               }
@@ -253,9 +280,18 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Syllabus"
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "message": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Syllabus"
+                      }
+                    }
                   }
                 }
               }
@@ -313,7 +349,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Syllabus"
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "message": {
+                      "$ref": "#/components/schemas/Syllabus"
+                    }
+                  }
                 }
               }
             }
@@ -501,12 +546,7 @@
             "default": false
           },
           "message": {
-            "type": "object",
-            "properties": {
-              "result": {
-                "type": "string"
-              }
-            }
+            "type": "string"
           }
         }
       },
@@ -518,12 +558,7 @@
             "default": true
           },
           "message": {
-            "type": "object",
-            "properties": {
-              "result": {
-                "type": "string"
-              }
-            }
+            "type": "string"
           }
         }
       }

@@ -14,8 +14,8 @@ type Process = {
 
 class Syllabus {
   private _args: DtoSyllabus | null
-  private _syllabusRef: FirebaseFirestore.CollectionReference<
-    FirebaseFirestore.DocumentData
+  private _syllabusRef: firestore.CollectionReference<
+    firestore.DocumentData
   >
 
   constructor(args: DtoSyllabus | null = null) {
