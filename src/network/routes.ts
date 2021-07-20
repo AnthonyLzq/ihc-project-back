@@ -2,10 +2,10 @@ import { Application, Response, Request, Router, NextFunction } from 'express'
 import swaggerUi from 'swagger-ui-express'
 import httpErrors from 'http-errors'
 
-import { Home, User, Syllabus, Search } from '../routes'
+import { Home, User, Syllabus, Search, Speech } from '../routes'
 import { response, docs } from '../utils'
 
-const routers = [User, Syllabus, Search]
+const routers = [User, Syllabus, Search, Speech]
 
 const applyRoutes = (app: Application): void => {
   app.use('/', Home)

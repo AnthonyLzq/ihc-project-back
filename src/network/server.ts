@@ -21,7 +21,9 @@ class Server {
   private _config() {
     this._app.set('port', process.env.PORT as string || '1996')
     this._app.use(morgan('dev'))
-    this._app.use(express.json())
+    this._app.use(express.json({
+      limit: '8mb'
+    }))
     this._app.use(express.urlencoded({ extended: false }))
     this._app.use(
       (

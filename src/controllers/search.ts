@@ -25,7 +25,6 @@ class Search {
   }
 
   private async _query(): Promise<ISearchResult[]> {
-    console.log(this._args)
     const { keyWord, query } = this._args as DtoSearch
 
     try {
