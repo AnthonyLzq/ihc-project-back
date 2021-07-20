@@ -30,6 +30,10 @@
     {
       "name": "syllabus",
       "description": "Operations related to the syllabus"
+    },
+    {
+      "name": "search",
+      "description": "Operations related to the search"
     }
   ],
   "paths": {
@@ -369,6 +373,93 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "tags": [
+          "search"
+        ],
+        "summary": "Get links with information about a requested topic from internet",
+        "operationId": "search",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "args": {
+                    "type": "object",
+                    "properties": {
+                      "keyWord": {
+                        "type": "string",
+                        "enum": [
+                          "all",
+                          "blog",
+                          "book",
+                          "tutorial",
+                          "paper",
+                          "video"
+                        ],
+                        "default": "all"
+                      },
+                      "query": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Web search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      }
+                    }
+                  }
                 }
               }
             }

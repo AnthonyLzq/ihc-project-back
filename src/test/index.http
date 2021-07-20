@@ -39,3 +39,14 @@ Content-Type: application/json
 
 ### Testing get one user
 GET http://localhost:1996/api/user/fW5bcQXoPKU8c1HkQEjd24dUyh62
+
+### Testing SCE
+POST http://localhost:1996/api/search
+Content-Type: application/json
+
+{
+  "args": {
+    "query": "java",
+    "keyWord": "tutorial"
+  }
+}
