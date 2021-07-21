@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/AnthonyLzq/ihc-project-back/compare/v1.0.0...v1.1.0) (2021-07-21)
+
+
+### Features
+
+* changed from mp3 to wav audio format ([d2277a9](https://github.com/AnthonyLzq/ihc-project-back/commit/d2277a912c529ceccd009e2e6b22ef46bbc35bc2))
+
 ## [1.0.0](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.5.0...v1.0.0) (2021-07-21)
 
 
