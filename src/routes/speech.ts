@@ -4,6 +4,7 @@ import { Response, Request } from '../custom'
 import { response } from '../utils'
 import { Speech as SpeechC } from '../controllers'
 import { DtoSpeech } from '../dto-interfaces'
+import { speech } from '../schemas'
 
 const Speech = Router()
 
@@ -12,10 +13,12 @@ Speech.route('/speech').post(
     const {
       body: { args }
     } = req
+    const { base64 } = args as DtoSpeech
 
     try {
+      await speech.validateAsync(base64)
       const s = new SpeechC(args as DtoSpeech)
-      const result = await s.process({ type: 'toMp3' })
+      const result = await s.process({ type: 'toWav' })
 
       response(false, result, res, 200)
     } catch (e) {

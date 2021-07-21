@@ -7,7 +7,7 @@ import { EFSp as EFS, GE, errorHandling } from './utils'
 import { deleteFile } from '../utils'
 
 type Process = {
-  type: 'toMp3'
+  type: 'toWav'
 }
 
 class Speech {
@@ -21,17 +21,17 @@ class Speech {
   public process({ type }: Process): Promise<string> {
     // eslint-disable-next-line default-case
     switch (type) {
-      case 'toMp3':
-        return this._toMp3()
+      case 'toWav':
+        return this._toWav()
     }
   }
 
-  private async _toMp3(): Promise<string> {
+  private async _toWav(): Promise<string> {
     const client = new RevAiApiClient(process.env.TOKEN as string)
     const { base64 } = this._args as DtoSpeech
 
     try {
-      const fileName = `file-${Date.now()}-${Math.floor(Math.random()*10)}.mp3`
+      const fileName = `file-${Date.now()}-${Math.floor(Math.random()*10)}.wav`
       const filePath = `${__dirname}/../utils/${fileName}`
       const buffer = Buffer.from(base64, 'base64')
       await new Promise((resolve, reject) => {
@@ -42,7 +42,7 @@ class Speech {
             if (error) {
               deleteFile(filePath)
               reject(
-                new httpErrors.InternalServerError(EFS.MP3_ERROR)
+                new httpErrors.InternalServerError(EFS.WAV_ERROR)
               )
             } else resolve('Success')
           }
