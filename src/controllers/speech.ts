@@ -32,7 +32,9 @@ class Speech {
 
     try {
       const fileName = `file-${Date.now()}-${Math.floor(Math.random()*10)}.wav`
-      const filePath = `${__dirname}/../utils/${fileName}`
+      const filePath = process.env.MODE as string === 'prod'
+        ? `${__dirname}/${fileName}`
+        : `${__dirname}/../utils/${fileName}`
       const buffer = Buffer.from(base64, 'base64')
       await new Promise((resolve, reject) => {
         fs.writeFile(
