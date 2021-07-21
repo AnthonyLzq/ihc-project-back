@@ -94,12 +94,14 @@ class Server {
 
     syllabus.forEach(
       ({
+        analyticProgram,
+        competencies,
         generalInfo: {
           course: { name, code }
         },
-        analyticProgram
+        sommelier
       }) => {
-        let content = `${name}: `
+        let content = `${name}: ${sommelier} Topics:  `
 
         analyticProgram?.forEach(({ topic, themes }) => {
           content += `${topic}: `
@@ -110,12 +112,27 @@ class Server {
               content += `${theme}, `
           })
         })
+
+        content = `${content.slice(0, -2)}`
+
+        if (competencies && competencies.length > 0) {
+          content += ' Competencies: '
+          competencies.forEach((c, index) => {
+            if (index === competencies?.length - 1)
+              content += `${c}.`
+            else
+              content += `${c}, `
+          })
+        }
+
         documents.push({
-          content: content.slice(0, -2),
-          id     : code
+          content,
+          id: code
         })
       }
     )
+
+    console.log(documents)
 
     global.recommender = new Cbr()
     global.recommender.train(documents)
