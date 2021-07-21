@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/AnthonyLzq/ihc-project-back/compare/v1.1.0...v1.1.1) (2021-07-21)
+
+
+### Bug Fixes
+
+* added validation for file creation in production mode ([d7458e9](https://github.com/AnthonyLzq/ihc-project-back/commit/d7458e99d70ca95b2ab54909ee4988c9215508a6))
+
 ## [1.1.0](https://github.com/AnthonyLzq/ihc-project-back/compare/v1.0.0...v1.1.0) (2021-07-21)
 
 
