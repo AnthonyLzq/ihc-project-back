@@ -38,6 +38,10 @@
     {
       "name": "speech",
       "description": "Operations related to transpile speech to text"
+    },
+    {
+      "name": "recommender",
+      "description": "Operations related to recommend courses based on the user input"
     }
   ],
   "paths": {
@@ -533,6 +537,62 @@
                     },
                     "message": {
                       "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recommender": {
+      "post": {
+        "tags": [
+          "recommender"
+        ],
+        "summary": "Get some syllabus based on the user input",
+        "operationId": "speech",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SelectCourses"
+        },
+        "responses": {
+          "200": {
+            "description": "Syllabus from the recommended courses based on the input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "boolean",
+                        "default": false
+                      },
+                      "message": {
+                        "$ref": "#/components/schemas/Syllabus"
+                      }
                     }
                   }
                 }

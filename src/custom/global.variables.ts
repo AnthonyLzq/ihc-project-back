@@ -1,11 +1,9 @@
 import { Firestore } from '@google-cloud/firestore'
-import Cbr from 'content-based-recommender-ts'
-
-const recommender = new Cbr()
+import ContentBaseRecommender from 'content-based-recommender-ts'
 
 interface CustomNodeJSGlobal extends NodeJS.Global {
   firestoreDB: Firestore
-  recommender: typeof recommender
+  recommender: ContentBaseRecommender
 }
 
 export { CustomNodeJSGlobal }
