@@ -32,7 +32,8 @@ class Speech {
 
     try {
       const fileName = `file-${Date.now()}-${Math.floor(Math.random()*10)}.wav`
-      const filePath = process.env.MODE as string === 'prod'
+      // eslint-disable-next-line no-extra-parens
+      const filePath = (process.env.MODE as string) === 'prod'
         ? `${__dirname}/${fileName}`
         : `${__dirname}/../utils/${fileName}`
       const buffer = Buffer.from(base64, 'base64')
