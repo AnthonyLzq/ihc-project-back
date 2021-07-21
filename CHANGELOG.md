@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.5.0...v1.0.0) (2021-07-21)
+
+
+### Features
+
+* added analyticProgram and sommelier to train the recommender ([5dc1818](https://github.com/AnthonyLzq/ihc-project-back/commit/5dc1818a08599e898d62a015afb3e41b0ac9a99b))
+* implemented endpoint to get recommendations based on the user input ([a1c9382](https://github.com/AnthonyLzq/ihc-project-back/commit/a1c9382ee5e87286dc9f16597f4024af6849a0fa))
+* implemented recommender system ([563e9fc](https://github.com/AnthonyLzq/ihc-project-back/commit/563e9fc02c7665ae4713744c07aba2daa20ccd94))
+
+
+### Bug Fixes
+
+* fixed syllabus object in the docs ([a91a916](https://github.com/AnthonyLzq/ihc-project-back/commit/a91a916670dcffa52634c96e7ca6705211678a56))
+
 ## [0.5.0](https://github.com/AnthonyLzq/ihc-project-back/compare/v0.4.0...v0.5.0) (2021-07-20)
 
 
