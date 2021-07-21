@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@google-cloud/firestore": "^4.13.1",
+    "content-based-recommender-ts": "^1.0.0",
     "express": "^4.17.1",
     "firebase-admin": "^9.10.0",
     "general-search-engine": "^1.4.1",

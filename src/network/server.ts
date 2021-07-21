@@ -2,13 +2,22 @@
 import express from 'express'
 import morgan from 'morgan'
 import admin from 'firebase-admin'
+import Cbr from 'content-based-recommender-ts'
 
 import { CustomNodeJSGlobal } from '../custom'
 import { deleteFile, writeJson } from '../utils'
 import { IFirebaseConfig } from '../types'
 import { applyRoutes } from './routes'
 
+import { Syllabus } from '../controllers'
+import { ISyllabus } from '../models'
+
 declare const global: CustomNodeJSGlobal
+
+type Document = {
+  content: string
+  id     : string
+}
 
 class Server {
   private _app: express.Application
@@ -19,11 +28,13 @@ class Server {
   }
 
   private _config() {
-    this._app.set('port', process.env.PORT as string || '1996')
+    this._app.set('port', process.env.PORT ?? '1996')
     this._app.use(morgan('dev'))
-    this._app.use(express.json({
-      limit: '8mb'
-    }))
+    this._app.use(
+      express.json({
+        limit: '8mb'
+      })
+    )
     this._app.use(express.urlencoded({ extended: false }))
     this._app.use(
       (
@@ -43,7 +54,6 @@ class Server {
     applyRoutes(this._app)
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private async _firebase(): Promise<void> {
     const firebaseConfig: IFirebaseConfig = {
       auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL as string,
@@ -72,6 +82,43 @@ class Server {
 
     global.firestoreDB = admin.firestore(app)
     console.log('Firebase connection established.')
+    this._train()
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private async _train(): Promise<void> {
+    const syllabus = (await new Syllabus().process({
+      type: 'getAll'
+    })) as ISyllabus[]
+    const documents: Document[] = []
+
+    syllabus.forEach(
+      ({
+        generalInfo: {
+          course: { name, code }
+        },
+        analyticProgram
+      }) => {
+        let content = `${name}: `
+
+        analyticProgram?.forEach(({ topic, themes }) => {
+          content += `${topic}: `
+          themes?.forEach((theme, index) => {
+            if (index === themes?.length - 1)
+              content += `${theme}.; `
+            else
+              content += `${theme}, `
+          })
+        })
+        documents.push({
+          content: content.slice(0, -2),
+          id     : code
+        })
+      }
+    )
+
+    global.recommender = new Cbr()
+    global.recommender.train(documents)
   }
 
   public start(): void {
