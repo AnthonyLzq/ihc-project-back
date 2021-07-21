@@ -608,25 +608,28 @@
             }
           },
           "bibliography": {
-            "type": "object",
-            "properties": {
-              "category": {
-                "enum": [
-                  "blog",
-                  "tutorial",
-                  "paper",
-                  "book"
-                ],
-                "nullable": true
-              },
-              "name": {
-                "type": "string"
-              },
-              "rates": {
-                "type": "integer"
-              },
-              "rating": {
-                "type": "number"
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "enum": [
+                    "blog",
+                    "tutorial",
+                    "paper",
+                    "book"
+                  ],
+                  "nullable": true
+                },
+                "name": {
+                  "type": "string"
+                },
+                "rates": {
+                  "type": "integer"
+                },
+                "rating": {
+                  "type": "number"
+                }
               }
             }
           },

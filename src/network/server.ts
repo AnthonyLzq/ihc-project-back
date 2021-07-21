@@ -132,8 +132,6 @@ class Server {
       }
     )
 
-    console.log(documents)
-
     global.recommender = new Cbr()
     global.recommender.train(documents)
   }
